@@ -29,11 +29,12 @@ export default function SkillsCarousel() {
   const nextButtonRef = useRef<HTMLButtonElement>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const totalItems = skills.length
+  const itemsPerPage = 5 // Adjust based on your responsive settings
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => {
-        const nextIndex = prev + 1
+        const nextIndex = prev + itemsPerPage
         if (nextIndex >= totalItems) {
           // Reset to 0 when reaching the end
           return 0
@@ -43,18 +44,25 @@ export default function SkillsCarousel() {
     }, 3000) // scroll every 3 seconds
 
     return () => clearInterval(interval)
-  }, [totalItems])
+  }, [totalItems, itemsPerPage])
 
   useEffect(() => {
-    // Simulate click on nextButton when currentIndex changes, so UI moves
+    // Simulate click on nextButton when currentIndex changes
     if (nextButtonRef.current) {
       nextButtonRef.current.click()
+      
+      // If we're at the end, manually reset to first item
+      if (currentIndex + itemsPerPage >= totalItems) {
+        setTimeout(() => {
+          setCurrentIndex(0)
+        }, 100) // Small delay to allow the animation to complete
+      }
     }
-  }, [currentIndex])
+  }, [currentIndex, totalItems, itemsPerPage])
 
   return (
     <div className="my-12 px-8 relative">
-      <h2 className="text-3xl font-semibold mb-6 text-center">Skills Portfolio</h2>
+      <h2 className="text-3xl font-semibold mb-6 text-center text-white">Skills Portfolio</h2>
       <Carousel className="w-full max-w-5xl mx-auto">
         <CarouselContent>
           {skills.map((skill, index) => (

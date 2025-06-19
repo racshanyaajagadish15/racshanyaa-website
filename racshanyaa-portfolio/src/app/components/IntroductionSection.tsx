@@ -53,13 +53,31 @@ export default function IntroductionSection() {
             relative 
             bg-black/60 
             backdrop-blur-md 
-            border border-white/30 
+            border border-white/20
             shadow-none 
             p-10 
             rounded-2xl
-            drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]
+            transition-all
+            duration-1000
+            ease-out
+            hover:border-white/40
+            hover:shadow-[0_0_10px_rgba(255,255,255,0.2)]
           "
         >
+          {/* Glow effect */}
+          <motion.div 
+            className="absolute inset-0 rounded-2xl pointer-events-none"
+            initial={{ opacity: 0 }}
+            whileHover={{
+              opacity: 1,
+              transition: { duration: 1, ease: "easeOut" }
+            }}
+            style={{
+              boxShadow: "0 0 20px rgba(255, 255, 255, 0.15)",
+              border: "1px solid rgba(255, 255, 255, 0.1)"
+            }}
+          />
+          
           <CardContent className="flex flex-col md:flex-row items-center gap-10 text-white">
             {/* Enlarged circular photo */}
             <div className="w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden shadow-lg border-4 border-white/30">
@@ -76,13 +94,13 @@ export default function IntroductionSection() {
 
             {/* Text content */}
             <div className="text-center md:text-left max-w-xl">
-              <h2 className="text-3xl md:text-4xl font-semibold mb-4 font-manrope transition-all duration-300 hover:text-yellow-400 hover:drop-shadow-[0_0_10px_rgba(255,255,0,0.8)]">
+              <h2 className="text-3xl md:text-4xl font-semibold mb-4 font-manrope">
                 Hi, I'm Racshanyaa Jagadish
               </h2>
               <p className="text-lg md:text-xl leading-relaxed font-light">
                 I'm a passionate Full Stack Developer and Tech Enthusiast with experience building modern web applications.
                 I love creating clean, user-friendly interfaces and solving challenging problems.
-                When I'm not coding, you’ll find me exploring new tech trends, contributing to open source, or experimenting with new recipes.
+                When I'm not coding, you'll find me exploring new tech trends, contributing to open source, or experimenting with new recipes.
               </p>
             </div>
           </CardContent>

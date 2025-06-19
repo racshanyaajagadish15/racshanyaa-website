@@ -20,7 +20,7 @@ const education = [
 export default function EducationCards() {
   return (
     <section className="px-6 md:px-16 my-20">
-     <h2 className="text-3xl font-semibold mb-6 text-center">
+      <h2 className="text-3xl font-semibold mb-6 text-center text-white">
         Education
       </h2>
       <div className="grid gap-12 md:grid-cols-2">
@@ -29,13 +29,14 @@ export default function EducationCards() {
             key={idx}
             className="
               flex flex-row items-center gap-8
-              bg-black/10 backdrop-blur-md rounded-3xl shadow-none p-6
-              border border-purple-200/30
-              ring-2 ring-purple-500/70
-              hover:ring-purple-600/90
+              bg-black rounded-3xl shadow-lg p-6
+              border border-white/10
+              ring-1 ring-white/20
+              hover:ring-white/30
               transition
               duration-300
               text-white
+              hover:shadow-white/10
             "
           >
             <div className="relative w-36 h-24 flex-shrink-0">
@@ -54,7 +55,7 @@ export default function EducationCards() {
                 {edu.degree}
               </CardTitle>
               <p className="text-lg font-light mb-1">{edu.institution}</p>
-              <p className="text-sm  italic">{edu.period}</p>
+              <p className="text-sm italic text-white/80">{edu.period}</p>
             </CardContent>
           </Card>
         ))}
