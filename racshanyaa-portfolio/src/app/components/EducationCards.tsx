@@ -1,6 +1,8 @@
 "use client"
+
 import Image from "next/image"
-import { Card, CardContent, CardTitle } from "@/components/ui/card"
+import SpotlightCard from "@/components/SpotlightCard/SpotlightCard"
+import { CardContent, CardTitle } from "@/components/ui/card"
 
 const education = [
   {
@@ -19,45 +21,56 @@ const education = [
 
 export default function EducationCards() {
   return (
-    <section className="px-6 md:px-16 my-20">
-      <h2 className="text-3xl font-semibold mb-6 text-center text-white">
-        Education
+    <section className="px-6 md:px-16 my-24 relative z-10">
+      <h2 className="text-4xl font-semibold mb-12 text-center text-white font-manrope">
+        🎓 Education
       </h2>
       <div className="grid gap-12 md:grid-cols-2">
         {education.map((edu, idx) => (
-          <Card
+          <SpotlightCard
             key={idx}
             className="
-              flex flex-row items-center gap-8
-              bg-black rounded-3xl shadow-lg p-6
-              border border-white/10
-              ring-1 ring-white/20
-              hover:ring-white/30
-              transition
-              duration-300
-              text-white
-              hover:shadow-white/10
+              relative 
+              bg-black/60 
+              backdrop-blur-md 
+              border border-white/20 
+              rounded-2xl 
+              p-8 
+              hover:border-white/40 
+              hover:shadow-[0_0_12px_rgba(255,255,255,0.15)] 
+              transition-all 
+              duration-500 
+              ease-out
             "
+            spotlightColor="rgba(255, 255, 255, 0.12)"
           >
-            <div className="relative w-36 h-24 flex-shrink-0">
-              <Image
-                src={edu.logo}
-                alt={`${edu.institution} logo`}
-                fill
-                style={{ objectFit: "contain" }}
-                priority
-                sizes="144px"
-              />
-            </div>
+            <CardContent className="flex gap-6 items-center text-white">
+              {/* School Logo */}
+              <div className="relative w-28 h-20 flex-shrink-0">
+                <Image
+                  src={edu.logo}
+                  alt={`${edu.institution} logo`}
+                  fill
+                  className="object-contain"
+                  sizes="112px"
+                  priority
+                />
+              </div>
 
-            <CardContent className="p-0 flex flex-col justify-center">
-              <CardTitle className="text-2xl font-semibold mb-1 font-manrope">
-                {edu.degree}
-              </CardTitle>
-              <p className="text-lg font-light mb-1">{edu.institution}</p>
-              <p className="text-sm italic text-white/80">{edu.period}</p>
+              {/* Text Info */}
+              <div className="flex flex-col justify-center">
+                <CardTitle className="text-2xl font-semibold font-manrope mb-1">
+                  {edu.degree}
+                </CardTitle>
+                <p className="text-lg font-light mb-1">
+                  {edu.institution}
+                </p>
+                <p className="text-sm italic text-white/70">
+                  {edu.period}
+                </p>
+              </div>
             </CardContent>
-          </Card>
+          </SpotlightCard>
         ))}
       </div>
     </section>

@@ -1,54 +1,36 @@
 'use client'
 
 import Image from "next/image"
-import { motion, useAnimation } from "framer-motion"
-import { useEffect } from "react"
-import { useInView } from "react-intersection-observer"
-import { Card, CardContent } from "@/components/ui/card"
+import SpotlightCard from "@/components/SpotlightCard/SpotlightCard"
+import { CardContent } from "@/components/ui/card"
+import AnimatedContent from "@/components/AnimatedContent/AnimatedContent"
+import Beams from "@/components/Beams/Beams"
+import Aurora from "@/components/Aurora/Aurora"
 
-export default function IntroductionSection() {
-  const controls = useAnimation()
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  })
-
-  useEffect(() => {
-    if (inView) controls.start("visible")
-  }, [controls, inView])
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.42, 0, 0.58, 1] },
-    },
-  }
-
+export default function ProfileSection() {
   return (
     <div className="relative flex min-h-screen justify-center items-center px-4">
-      {/* Background video */}
-      <video
-        src="/header.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-60 z-0"
-      />
-
-      {/* Overlay to blend and darken the video */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm z-10 mix-blend-overlay" />
-
-      {/* Card container */}
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={controls}
-        className="relative z-20 w-full max-w-5xl"
+      <div className="absolute inset-0 w-full h-full object-cover opacity-60 z-0">
+        <Aurora
+          colorStops={["#3A3A3A", "#777777", "#CFCFCF"]}
+          blend={0.4}
+          amplitude={0.8}
+          speed={0.3}
+        />
+      </div>
+      <AnimatedContent
+        distance={50}
+        direction="vertical"
+        reverse={false}
+        duration={1.2}
+        ease="fade.out"
+        initialOpacity={0.2}
+        animateOpacity
+        scale={1.0}
+        threshold={0.2}
+        delay={0.3}
       >
-        <Card
+        <SpotlightCard
           className="
             relative 
             bg-black/60 
@@ -63,23 +45,10 @@ export default function IntroductionSection() {
             hover:border-white/40
             hover:shadow-[0_0_10px_rgba(255,255,255,0.2)]
           "
+          spotlightColor="rgba(255, 255, 255, 0.15)"
         >
-          {/* Glow effect */}
-          <motion.div 
-            className="absolute inset-0 rounded-2xl pointer-events-none"
-            initial={{ opacity: 0 }}
-            whileHover={{
-              opacity: 1,
-              transition: { duration: 1, ease: "easeOut" }
-            }}
-            style={{
-              boxShadow: "0 0 20px rgba(255, 255, 255, 0.15)",
-              border: "1px solid rgba(255, 255, 255, 0.1)"
-            }}
-          />
-          
-          <CardContent className="flex flex-col md:flex-row items-center gap-10 text-white">
-            {/* Enlarged circular photo */}
+          <CardContent className="flex flex-col md:flex-row items-center gap-10 text-white relative z-10">
+            {/* Circular Profile Image */}
             <div className="w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden shadow-lg border-4 border-white/30">
               <Image
                 src="/profile.jpg"
@@ -92,10 +61,10 @@ export default function IntroductionSection() {
               />
             </div>
 
-            {/* Text content */}
+            {/* Text Content */}
             <div className="text-center md:text-left max-w-xl">
               <h2 className="text-3xl md:text-4xl font-semibold mb-4 font-manrope">
-                Hi, I'm Racshanyaa Jagadish
+                Hello, I'm Racshanyaa! 👋
               </h2>
               <p className="text-lg md:text-xl leading-relaxed font-light">
                 I'm a passionate Full Stack Developer and Tech Enthusiast with experience building modern web applications.
@@ -104,8 +73,8 @@ export default function IntroductionSection() {
               </p>
             </div>
           </CardContent>
-        </Card>
-      </motion.div>
+        </SpotlightCard>
+      </AnimatedContent>
     </div>
   )
 }
