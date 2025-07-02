@@ -8,7 +8,7 @@ import EducationCards from "./components/EducationCards"
 import ExperienceScroller from "./components/ExperienceScroller"
 import ProjectsPage from "./components/ProjectsPage"
 import { motion } from "framer-motion"
-import { Linkedin } from "lucide-react"
+import { Linkedin, Github } from "lucide-react"
 import GooeyNav from "@/components/GooeyNav/GooeyNav"
 
 const navItems = [
@@ -81,9 +81,17 @@ export default function Home() {
           href="https://www.linkedin.com/in/racshanyaa-jagadish-b987a4246/"
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-4 bg-black/30 rounded-full p-2 hover:bg-purple-700 transition-colors duration-300 shadow-lg"
+          className="ml-4 bg-black/30 rounded-full p-2 hover:bg-slate-400 transition-colors duration-300 shadow-lg"
         >
           <Linkedin className="w-5 h-5 text-white" />
+        </a>
+        <a
+          href="https://github.com/racshanyaajagadish15"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-4 bg-black/30 rounded-full p-2 hover:bg-slate-400 transition-colors duration-300 shadow-lg"
+        >
+          <Github className="w-5 h-5 text-white" />
         </a>
       </div>
 

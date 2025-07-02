@@ -1,6 +1,5 @@
 'use client'
 
-import { useRef } from "react"
 import Image from "next/image"
 import {
   Carousel,
@@ -9,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import Beams from "@/components/Beams/Beams"
+import ShinyText from "@/components/ShinyText/ShinyText"
 
 const skills = [
   { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
