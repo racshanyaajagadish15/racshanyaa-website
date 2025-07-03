@@ -3,37 +3,42 @@
 import Image from "next/image"
 import SpotlightCard from "@/components/SpotlightCard/SpotlightCard"
 import { CardContent } from "@/components/ui/card"
-import AnimatedContent from "@/components/AnimatedContent/AnimatedContent"
 import Beams from "@/components/Beams/Beams"
-import Aurora from "@/components/Aurora/Aurora"
+import ShinyText from "@/components/ShinyText/ShinyText"
+import { motion } from "framer-motion"
+import ContactButton from "./ContactButton"
+import { Contact } from "lucide-react"
 
 export default function ProfileSection() {
   return (
-    <div className="relative flex min-h-screen justify-center items-center px-4">
-      <div className="absolute inset-0 w-full h-full object-cover opacity-60 z-0">
-        <Aurora
-          colorStops={["#3A3A3A", "#777777", "#CFCFCF"]}
-          blend={0.4}
-          amplitude={0.8}
-          speed={0.3}
+    <div className="relative flex min-h-screen justify-center items-center px-4 bg-black">
+      {/* Background Beams */}
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+        <Beams
+          beamWidth={2}
+          beamHeight={15}
+          beamNumber={12}
+          lightColor="#d9d9d9"
+          speed={2}
+          noiseIntensity={1.75}
+          scale={0.2}
+          rotation={30}
         />
       </div>
-      <AnimatedContent
-        distance={50}
-        direction="vertical"
-        reverse={false}
-        duration={1.2}
-        ease="fade.out"
-        initialOpacity={0.2}
-        animateOpacity
-        scale={1.0}
-        threshold={0.2}
-        delay={0.3}
+
+      {/* Animated Section Content */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        viewport={{ amount: 0.3 }}
+        className="relative z-10"
       >
         <SpotlightCard
           className="
             relative 
-            bg-black/60 
+            bg-black 
             backdrop-blur-md 
             border border-white/20
             shadow-none 
@@ -48,33 +53,40 @@ export default function ProfileSection() {
           spotlightColor="rgba(255, 255, 255, 0.15)"
         >
           <CardContent className="flex flex-col md:flex-row items-center gap-10 text-white relative z-10">
-            {/* Circular Profile Image */}
-            <div className="w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden shadow-lg border-4 border-white/30">
+            {/* Profile Image */}
+            <div className="w-40 h-48 md:w-56 md:h-64 rounded-md overflow-hidden shadow-lg border-4 border-white/30">
               <Image
                 src="/profile.jpg"
                 alt="Racshanyaa Jagadish"
                 width={224}
-                height={224}
+                height={256}  // Adjust height accordingly for rectangle
                 className="object-cover w-full h-full"
                 style={{ objectPosition: "center 25%" }}
                 priority
               />
             </div>
 
-            {/* Text Content */}
+            {/* Text Info */}
             <div className="text-center md:text-left max-w-xl">
               <h2 className="text-3xl md:text-4xl font-semibold mb-4 font-manrope">
                 Hello, I'm Racshanyaa! 👋
               </h2>
-              <p className="text-lg md:text-xl leading-relaxed font-light">
-                I'm a passionate Full Stack Developer and Tech Enthusiast with experience building modern web applications.
-                I love creating clean, user-friendly interfaces and solving challenging problems.
-                When I'm not coding, you'll find me exploring new tech trends, contributing to open source, or experimenting with new recipes.
+              <p className="text-lg md:text-xl leading-relaxed font-light mb-6">
+                I'm just a girl who loves coding and building apps!
+                My purpose is to create technology that genuinely improves people’s lives—whether by making tasks easier, information more accessible, or experiences more enjoyable. 
+                I’m driven by the belief that well-crafted software can be a powerful tool for positive impact!
+                <br></br>
+                <i>My social links are on the top-right, or feel free to say hello by clicking below!</i>
               </p>
+
+              {/* Say Hello Button */}
+             <div className="flex justify-center md:justify-start">
+               <ContactButton />
+              </div>
             </div>
           </CardContent>
         </SpotlightCard>
-      </AnimatedContent>
+      </motion.div>
     </div>
   )
 }

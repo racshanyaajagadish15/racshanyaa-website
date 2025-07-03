@@ -12,8 +12,10 @@ import Image from "next/image"
 import SpotlightCard from "@/components/SpotlightCard/SpotlightCard"
 import { CardContent, CardTitle } from "@/components/ui/card"
 import AnimatedList from "@/components/AnimatedList/AnimatedList"
-import Beams from "@/components/Beams/Beams"
-import Aurora from "@/components/Aurora/Aurora"
+import Threads from "@/components/Threads/Threads"
+import { motion } from "framer-motion"
+import type { Variants } from "framer-motion"
+
 
 const education = [
   {
@@ -79,114 +81,134 @@ const education = [
   },
 ]
 
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 50,
+      damping: 15,
+    },
+  },
+}
+
 export default function EducationCards() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-
   const selectedEdu = selectedIndex !== null ? education[selectedIndex] : null;
 
   return (
     <section className="px-6 md:px-16 my-24 relative z-10">
-      <h2 className="text-3xl font-semibold mb-6 text-center text-white">
-        🎓 Education
+      <h2 className="text-4xl font-extrabold mb-10 text-center text-white">
+        Education
       </h2>
 
       <div className="grid gap-12 md:grid-cols-2">
         {education.map((edu, idx) => (
-          <Dialog key={idx} open={selectedIndex === idx} onOpenChange={(open) => setSelectedIndex(open ? idx : null)}>
-            <DialogTrigger asChild>
-              <div onClick={() => setSelectedIndex(idx)}>
-                <SpotlightCard
-                  className="relative cursor-pointer bg-black/60 backdrop-blur-md border border-white/20 rounded-2xl p-8 hover:border-white/40 hover:shadow-[0_0_12px_rgba(255,255,255,0.15)] transition-all duration-500 ease-out"
-                  spotlightColor="rgba(255, 255, 255, 0.12)"
-                >
-                  <CardContent className="flex gap-6 items-center text-white">
-                    <div className="relative w-28 h-20 flex-shrink-0">
-                      <Image
-                        src={edu.logo}
-                        alt={`${edu.institution} logo`}
-                        fill
-                        className="object-contain"
-                        sizes="112px"
-                        priority
-                      />
-                    </div>
-                    <div className="flex flex-col justify-center">
-                      <CardTitle className="text-2xl font-semibold font-manrope mb-1">
-                        {edu.degree}
-                      </CardTitle>
-                      <p className="text-lg font-light mb-1">{edu.institution}</p>
-                      <p className="text-sm italic text-white/70">{edu.period}</p>
-                    </div>
-                  </CardContent>
-                </SpotlightCard>
-              </div>
-            </DialogTrigger>
+          <motion.div
+            key={idx}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ amount: 0.3 }}
+          >
+            <Dialog open={selectedIndex === idx} onOpenChange={(open) => setSelectedIndex(open ? idx : null)}>
+              <DialogTrigger asChild>
+                <div onClick={() => setSelectedIndex(idx)}>
+                  <SpotlightCard
+                    className="relative cursor-pointer bg-black/60 backdrop-blur-md border border-white/20 rounded-2xl p-8 hover:border-white/40 hover:shadow-[0_0_12px_rgba(255,255,255,0.15)] transition-all duration-500 ease-out"
+                    spotlightColor="rgba(255, 255, 255, 0.12)"
+                  >
+                    <CardContent className="flex gap-6 items-center text-white">
+                      <div className="relative w-28 h-20 flex-shrink-0">
+                        <Image
+                          src={edu.logo}
+                          alt={`${edu.institution} logo`}
+                          fill
+                          className="object-contain"
+                          sizes="112px"
+                          priority
+                        />
+                      </div>
+                      <div className="flex flex-col justify-center">
+                        <CardTitle className="text-2xl font-semibold font-manrope mb-1">
+                          {edu.degree}
+                        </CardTitle>
+                        <p className="text-lg font-light mb-1">{edu.institution}</p>
+                        <p className="text-sm italic text-white/70">{edu.period}</p>
+                      </div>
+                    </CardContent>
+                  </SpotlightCard>
+                </div>
+              </DialogTrigger>
 
-            <DialogContent
-              style={{ width: "50vw", maxWidth: "75vw", height: "50vw", maxHeight: "75vw" }}
-              className="
-                fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2
-                w-[75vw] max-w-[75vw]
-                h-[vh]
-                bg-black/90 border border-white/10 backdrop-blur 
-                p-12 rounded-xl shadow-xl 
-                z-50
-              "
-            >
-              {/* Beams background wrapper */}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{ filter: "blur(6px)", opacity: 0.6, zIndex: 0 }}
+              <DialogContent
+                style={{ width: "50vw", maxWidth: "75vw", height: "50vw", maxHeight: "75vw" }}
+                className="
+                  fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2
+                  w-[75vw] max-w-[75vw]
+                  bg-black/90 border border-white/10 backdrop-blur 
+                  p-12 rounded-xl shadow-xl 
+                  z-50
+                "
               >
-                <Aurora 
-                colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
-                />
-              </div>
-               <div className="relative z-10 flex flex-col h-full overflow-auto">
-              {/* Header */}
-              <h3 className="text-4xl font-bold text-white mb-6">{selectedEdu?.degree}</h3>
-              <p className="text-white text-lg mb-2 italic">{selectedEdu?.institution}</p>
-              <p className="text-white text-sm mb-10">{selectedEdu?.period}</p>
-
-              <div className="grid grid-cols-2 gap-12 h-full">
-                {/* Left column - Courses Taken */}
-                <div className="overflow-y-auto pr-6">
-                  <h4 className="text-white text-2xl mb-6 font-semibold">📚 Courses Taken</h4>
-                  <AnimatedList items={selectedEdu?.courses} className="max-h-[65vh]" />
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{ filter: "blur(6px)", opacity: 0.6, zIndex: 0 }}
+                >
+                  <Threads
+                    amplitude={1}
+                    distance={0}
+                    enableMouseInteraction={true}
+                  />
                 </div>
 
-                {/* Right column - GPA, Extra Curriculars, Awards */}
-                <div className="flex flex-col justify-start gap-12 overflow-y-auto max-h-[65vh]">
-                  <div>
-                    <h4 className="text-white text-2xl font-semibold mb-4">🎯 GPA / Score</h4>
-                    <p className="text-white text-lg">{selectedEdu?.gpa}</p>
-                  </div>
+                <div className="relative z-10 flex flex-col h-full overflow-auto">
+                  <h3 className="text-4xl font-bold text-white mb-6">{selectedEdu?.degree}</h3>
+                  <p className="text-white text-lg mb-2 italic">{selectedEdu?.institution}</p>
+                  <p className="text-white text-sm mb-10">{selectedEdu?.period}</p>
 
-                  <div>
-                    <h4 className="text-white text-2xl font-semibold mb-4">🌟 Extra Curriculars</h4>
-                    <ul className="list-disc ml-5 text-white text-base space-y-3">
-                      {selectedEdu?.highlights?.map((item, i) => (
-                        <li key={i}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {selectedEdu?.awards && selectedEdu.awards.some(a => a.trim() !== "") && (
-                    <div>
-                      <h4 className="text-white text-2xl font-semibold mb-4">🏆 Awards</h4>
-                      <ul className="list-disc ml-5 text-white text-base space-y-3">
-                        {selectedEdu.awards.filter(a => a.trim() !== "").map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
-                      </ul>
+                  <div className="grid grid-cols-2 gap-12 h-full">
+                    {/* Courses Taken */}
+                    <div className="pr-6">
+                      <h4 className="text-white text-2xl mb-6 font-semibold">📚 Courses Taken</h4>
+                      <AnimatedList items={selectedEdu?.courses} className="max-h-[65vh]" />
                     </div>
-                  )}
-                </div>
-              </div>
 
-              </div>
-            </DialogContent>
-          </Dialog>
+                    {/* GPA, Highlights, Awards */}
+                    <div className="flex flex-col justify-start gap-12 overflow-y-auto max-h-[65vh]">
+                      <div>
+                        <h4 className="text-white text-2xl font-semibold mb-4">🎯 GPA / Score</h4>
+                        <p className="text-white text-lg">{selectedEdu?.gpa}</p>
+                      </div>
+
+                      <div>
+                        <h4 className="text-white text-2xl font-semibold mb-4">🌟 Extra Curriculars</h4>
+                        <ul className="list-disc ml-5 text-white text-base space-y-3">
+                          {selectedEdu?.highlights?.map((item, i) => (
+                            <li key={i}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {selectedEdu?.awards && selectedEdu.awards.some(a => a.trim() !== "") && (
+                        <div>
+                          <h4 className="text-white text-2xl font-semibold mb-4">🏆 Awards</h4>
+                          <ul className="list-disc ml-5 text-white text-base space-y-3">
+                            {selectedEdu.awards.filter(a => a.trim() !== "").map((item, i) => (
+                              <li key={i}>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </motion.div>
         ))}
       </div>
     </section>

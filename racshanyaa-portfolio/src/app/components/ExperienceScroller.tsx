@@ -1,50 +1,121 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+
+import { Sparkles, Medal, ShieldCheck, Trophy } from "lucide-react"
+import AnimatedContent from "@/components/AnimatedContent/AnimatedContent"
+import SpotlightCard from "@/components/SpotlightCard/SpotlightCard"
 import { motion } from "framer-motion"
+
+const iconMap = [
+  <Sparkles key="sparkles" className="text-gray-400 w-5 h-5" />,
+  <Medal key="medal" className="text-gray-400 w-5 h-5" />,
+  <ShieldCheck key="shield" className="text-gray-400 w-5 h-5" />,
+  <Trophy key="trophy" className="text-gray-400 w-5 h-5" />,
+]
 
 const experiences = [
   {
-    title: "J.P. Morgan GenerationTech Winner",
-    date: "2023",
-    desc: "Built an award-winning digital app to combat food insecurity.",
+    title: "JP Morgan Take a Byte",
+    date: "June 2025",
+    desc: "Attended as a selected participant, got the opportunity to interact with technologists from the firm and get insights into how the firm engenders real-world impact in the banking technology space.",
   },
   {
-    title: "International Business Olympiad Gold Medalist",
-    date: "2023",
-    desc: "Awarded for excellence in international business strategy and analysis and securing Global 6th Position",
+    title: "EasyA x Ripple XRPL Singapore Hackathon",
+    date: "June 2025",
+    desc: "Built U-PayMan, a unified payment management platform that empowers individuals with a streamlined view of their credit activity by leveraging XRP Ledger across multiple banks and enables them to securely validate their creditworthiness using Zero-Knowledge Proofs — all in one intuitive dashboard",
   },
-  // Add more experiences as needed
+  {
+    title: "AI Student Developer Conference",
+    date: "May 2025",
+    desc: "Participated in panel discussions with revoluntionary firms including Google, NCS, Oracle, Microsoft, ST Enginnering and attended a workshop on AWS Reckognition",
+  },
+  {
+    title: "JP Morgan Finance for Non Finance",
+    date: "May 2025",
+    desc: "Attended as a selected participant, got the opportunity to learn from industry professionals on how different fields intersect to collectively build the finance industry, and career opportunities within the space",
+  },
+  {
+    title: "SEMI TalentConnect",
+    date: "May 2025",
+    desc: "Selected to participate in a panel discussion with industry experts from top notch engineering companies such as Micron, Infineon Technologies, GlobalFoundries, Sandisk",
+  },
+  {
+    title: "EasyA x BCG x VeChain Singapore Hackathon (Finalist)",
+    date: "September 2024",
+    desc: "Presented a solution, GrowX that rewards users with B3TR tokens whenever they perform gardening, growing or similar sustainable food sourcing habits",
+  },
+  {
+    title: "International Business Olympiad (Gold Award & Global 6th Position)",
+    date: "September 2023",
+    desc: "A global competitive exam that challenges individuals to solve problems in the real world business context while enhancing one’s critical thinking skills.I achieved Global 6th Position in Objective Test and 1st Position in Team Open Case Analysis ",
+  },
+  {
+    title: "JP Morgan GenerationTech Hackathon (Winner)",
+    date: "July 2023",
+    desc: "Designed the winning solution Share-a-Bite, a gamified platform designed to tackle local food insecurity by leveraging on underutilized community gardens in Singapore",
+  },
 ]
 
-export default function ExperienceScroller() {
+
+export default function ExperienceCarousel() {
   return (
     <section className="my-20 px-6">
-      <h2 className="text-4xl font-extrabold mb-10 text-center text-white">🚀 Highlights</h2>
+      <h2 className="text-4xl font-extrabold mb-10 text-center text-white drop-shadow-[0_0_6px_rgba(180,180,180,0.4)]">
+        Industry Experience
+      </h2>
 
-      <div className="flex gap-6 overflow-x-auto px-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
-        {experiences.map((exp, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: idx * 0.2 }}
-          >
-            <Card
-              className="flex-shrink-0 w-[340px] md:w-[380px] h-[220px] bg-gradient-to-br from-[#1f1f1f] to-[#2c2c2c] border border-gray-800 rounded-2xl hover:scale-105 hover:shadow-xl transition-transform duration-300"
+      <Carousel
+        opts={{ align: "center", loop: true }}
+        className="w-full max-w-6xl mx-auto"
+      >
+        <CarouselContent>
+          {experiences.map((exp, idx) => (
+            <CarouselItem
+              key={idx}
+              className="px-4 py-4"
+              style={{ flex: "0 0 auto", width: 400 }} // fixed 400px width
             >
-              <CardContent className="p-6 flex flex-col justify-between h-full">
-                <div>
-                  <h3 className="text-xl font-semibold text-white">{exp.title}</h3>
-                  <p className="text-sm text-gray-400">{exp.date}</p>
+              <AnimatedContent
+                distance={100}
+                direction="vertical"
+                duration={0.7}
+                delay={idx * 0.15}
+                scale={1.05}
+                animateOpacity
+              >
+              <SpotlightCard
+                spotlightColor="rgba(160, 160, 160, 0.2)"
+                className="h-[400px] bg-gradient-to-br from-[#1f1f1f] to-[#2a2a2a] border border-[#4a4a4a] text-white hover:shadow-[0_0_30px_rgba(150,150,150,0.3)] transition duration-300 ease-in-out"
+              >
+                <div className="p-5 flex flex-col h-full">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-base font-semibold break-words max-w-[80%]">
+                      {exp.title}
+                    </h3>
+                    {iconMap[idx % iconMap.length]}
+                  </div>
+                  <p className="text-sm text-gray-400 mb-3">{exp.date}</p>
+                  <div className="flex-1 overflow-y-auto">
+                    <p className="text-sm text-gray-200 whitespace-pre-wrap break-words">
+                      {exp.desc}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-white text-sm leading-relaxed mt-4">{exp.desc}</p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
+              </SpotlightCard>
+              </AnimatedContent>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="bg-[#2a2a2a] text-white border border-gray-600" />
+        <CarouselNext className="bg-[#2a2a2a] text-white border border-gray-600" />
+      </Carousel>
     </section>
   )
 }

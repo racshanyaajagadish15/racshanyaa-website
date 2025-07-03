@@ -13,11 +13,11 @@ import ShinyText from "@/components/ShinyText/ShinyText"
 const skills = [
   { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
   { name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-  { name: "C", logo: "/c.png" },
-  { name: "C++", logo: "/cplusplus.png" },
+  { name: "C", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg "},
+  { name: "C++", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" },
   { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "Vite", logo: "/vite.png" },
-  { name: "NodeJS", logo: "/node.png" },
+  { name: "Vite", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg" },
+  { name: "NodeJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" },
   { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
   { name: "MySQL", logo: "/mysql.png" },
   { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
@@ -28,7 +28,7 @@ const skills = [
 export default function SkillsCarousel() {
   return (
     <div className="my-12 px-8 relative">
-      <h2 className="text-3xl font-semibold mb-6 text-center text-white">Skills Portfolio</h2>
+      <h2 className="text-4xl font-extrabold mb-10 text-center text-white">Skills Portfolio</h2>
       <Carousel className="w-full max-w-5xl mx-auto">
         <CarouselContent>
           {skills.map((skill, index) => (

@@ -8,8 +8,11 @@ import EducationCards from "./components/EducationCards"
 import ExperienceScroller from "./components/ExperienceScroller"
 import ProjectsPage from "./components/ProjectsPage"
 import { motion } from "framer-motion"
-import { Linkedin, Github } from "lucide-react"
+import { FileText } from "lucide-react"
 import GooeyNav from "@/components/GooeyNav/GooeyNav"
+import SkillsMasonry from "./components/SkillsMasonry"
+import AdditionalInformation from "./components/AdditionalInformation"
+import "devicon/devicon.min.css";
 
 const navItems = [
   { label: "Home", href: "#banner" },
@@ -24,7 +27,7 @@ export default function Home() {
   const [showAllProjects, setShowAllProjects] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
 
-  const sectionIds = ["banner", "intro", "skills", "education", "experience", "projects"]
+  const sectionIds = ["banner", "intro", "skills", "education", "experience", "projects", "additional info"]
 
   // Smooth scroll to section with offset (height of fixed navbar)
   const scrollToSection = (id: string, index: number) => {
@@ -72,62 +75,76 @@ export default function Home() {
   return (
     <>
       {/* Top Ribbon */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-md px-6 py-2 flex items-center justify-between">
-        <div className="flex-1">
-          <GooeyNav items={navItems} initialActiveIndex={activeIndex} />
-        </div>
+    <div className="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-md px-6 py-2 flex items-center justify-between">
+      <div className="flex-1">
+        <GooeyNav items={navItems} initialActiveIndex={activeIndex} />
+      </div>
 
+      <div className="flex items-center">
+        {/* LinkedIn */}
         <a
           href="https://www.linkedin.com/in/racshanyaa-jagadish-b987a4246/"
           target="_blank"
           rel="noopener noreferrer"
           className="ml-4 bg-black/30 rounded-full p-2 hover:bg-slate-400 transition-colors duration-300 shadow-lg"
+          aria-label="LinkedIn"
         >
-          <Linkedin className="w-5 h-5 text-white" />
+          <i className="devicon-linkedin-plain text-white text-xl"></i>
         </a>
+        
+        {/* GitHub */}
         <a
           href="https://github.com/racshanyaajagadish15"
           target="_blank"
           rel="noopener noreferrer"
           className="ml-4 bg-black/30 rounded-full p-2 hover:bg-slate-400 transition-colors duration-300 shadow-lg"
+          aria-label="GitHub"
         >
-          <Github className="w-5 h-5 text-white" />
+          <i className="devicon-github-original text-white text-xl"></i>
+        </a>
+        
+        {/* Medium */}
+        <a
+          href="https://medium.com/@your-medium-username"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-4 bg-black/30 rounded-full p-2 hover:bg-slate-400 transition-colors duration-300 shadow-lg"
+          aria-label="Medium"
+        >
+          <img 
+            src="/medium.png" 
+            alt="Medium" 
+            className="w-5 h-5 object-contain" 
+          />
         </a>
       </div>
-
+    </div>
       {/* Content */}
       <main className="min-h-screen bg-black text-white">
         <section id="banner"><Banner /></section>
         <section id="intro"><IntroductionSection /></section>
-        <section id="skills"><SkillsCarousel /></section>
+        <section id="skills"><SkillsMasonry /></section>
         <section id="education"><EducationCards /></section>
         <section id="experience"><ExperienceScroller /></section>
+        <section id="additional info"><AdditionalInformation /></section>
 
         <section id="projects" className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-4xl font-bold text-white mb-4">Featured Projects</h2>
-              <p className="text-xl text-gray-300">A selection of my best work</p>
-            </motion.div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl font-bold text-white mb-4">Featured Projects</h2>
+            <p className="text-xl text-gray-300">A selection of my best work</p>
+          </motion.div>
 
-            <ProjectsPage showAll={showAllProjects} />
+          {/* Always pass showAll={true} */}
+          <ProjectsPage showAll={true} />
 
-            {!showAllProjects && (
-              <div className="text-center mt-12">
-                <button
-                  onClick={() => setShowAllProjects(true)}
-                  className="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg text-white font-medium transition-colors duration-300"
-                >
-                  View All Projects
-                </button>
-              </div>
-            )}
-          </div>
-        </section>
+          {/* The button and its surrounding div are completely removed */}
+        </div>
+      </section>
       </main>
     </>
   )

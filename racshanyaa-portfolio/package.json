@@ -17,6 +17,7 @@
     "@react-three/rapier": "^2.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "devicon": "^2.16.0",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.18.1",
     "gsap": "^3.13.0",
@@ -29,6 +30,7 @@
     "react-fast-marquee": "^1.6.5",
     "react-icons": "^5.5.0",
     "react-intersection-observer": "^9.16.0",
+    "react-masonry-css": "^1.0.16",
     "tailwind-merge": "^3.3.1",
     "three": "^0.167.1"
   },
