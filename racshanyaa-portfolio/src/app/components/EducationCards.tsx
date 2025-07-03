@@ -165,7 +165,7 @@ export default function EducationCards() {
                   />
                 </div>
 
-                <div className="relative z-10 flex flex-col h-full overflow-auto">
+                <div className="relative z-10 flex flex-col overflow-y-auto max-h-[70vh]">
                   <h3 className="text-4xl font-bold text-white mb-6">{selectedEdu?.degree}</h3>
                   <p className="text-white text-lg mb-2 italic">{selectedEdu?.institution}</p>
                   <p className="text-white text-sm mb-10">{selectedEdu?.period}</p>
@@ -178,7 +178,7 @@ export default function EducationCards() {
                     </div>
 
                     {/* GPA, Highlights, Awards */}
-                    <div className="flex flex-col justify-start gap-12 overflow-y-auto max-h-[65vh]">
+                    <div className="flex flex-col justify-start gap-12">
                       <div>
                         <h4 className="text-white text-2xl font-semibold mb-4">🎯 GPA / Score</h4>
                         <p className="text-white text-lg">{selectedEdu?.gpa}</p>
