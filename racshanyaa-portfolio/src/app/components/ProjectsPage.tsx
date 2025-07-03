@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import { FiGithub } from "react-icons/fi"
 import SpotlightCard from "@/components/SpotlightCard/SpotlightCard" // Assuming this is correctly imported
 import ProfileCard from "@/components/ProfileCard/ProfileCard"
-import { Code, Terminal } from "lucide-react";
 
 const allProjects = [
   {
@@ -120,7 +119,7 @@ export default function ProjectsPage({ showAll }: { showAll: boolean }) {
                 layout
               >
                 <SpotlightCard
-                  spotlightColor="rgba(161, 161, 255, 0.15)"
+                  spotlightColor="rgba(160, 160, 160, 0.2)"
                   className="h-full bg-gradient-to-br from-[#1e1e2e]/90 to-[#2a2a3a]/90 border border-[#3a3a4a] hover:border-[#5a5a7a] text-white hover:shadow-[0_0_30px_rgba(140,140,255,0.15)] transition-all duration-500 p-1"
                 >
                   {/* Changed to flex-col and justify-between for consistent spacing */}

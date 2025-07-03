@@ -13,6 +13,9 @@ import GooeyNav from "@/components/GooeyNav/GooeyNav"
 import SkillsMasonry from "./components/SkillsMasonry"
 import AdditionalInformation from "./components/AdditionalInformation"
 import "devicon/devicon.min.css";
+import Squares from "@/components/Squares/Squares"
+import Dither from "@/components/Dither/Dither"
+
 
 const navItems = [
   { label: "Home", href: "#banner" },
@@ -125,26 +128,47 @@ export default function Home() {
         <section id="intro"><IntroductionSection /></section>
         <section id="skills"><SkillsMasonry /></section>
         <section id="education"><EducationCards /></section>
-        <section id="experience"><ExperienceScroller /></section>
-        <section id="additional info"><AdditionalInformation /></section>
+        <section className="relative min-h-[1200px]"> {/* Enough height for both sections */}
+          {/* Common Background Dither */}
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
+            <Dither
+              waveColor={[0.5, 0.5, 0.5]}
+              disableAnimation={false}
+              enableMouseInteraction={true}
+              mouseRadius={0.3}
+              colorNum={4}
+              waveAmplitude={0.3}
+              waveFrequency={3}
+              waveSpeed={0.05}
+            />
+          </div>
 
-        <section id="projects" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
+          {/* Experience Section Foreground */}
+          <section
+            id="experience"
+            className="relative z-10 flex items-center justify-center min-h-[600px] py-10"
           >
-            <h2 className="text-4xl font-bold text-white mb-4">Featured Projects</h2>
-            <p className="text-xl text-gray-300">A selection of my best work</p>
-          </motion.div>
+            <ExperienceScroller />
+          </section>
 
-          {/* Always pass showAll={true} */}
-          <ProjectsPage showAll={true} />
+          {/* Projects Section Foreground */}
+          <section
+            id="projects"
+            className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-[600px] py-20"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-4xl font-bold text-white mb-4">Featured Projects</h2>
+              <p className="text-xl text-gray-300">A selection of my best work</p>
+            </motion.div>
 
-          {/* The button and its surrounding div are completely removed */}
-        </div>
-      </section>
+            <ProjectsPage showAll={true} />
+          </section>
+        </section>
+
       </main>
     </>
   )
