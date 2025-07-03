@@ -72,8 +72,8 @@ export default function ExperienceCarousel() {
       </h2>
 
       <Carousel
-        opts={{ align: "center", loop: true }}
-        className="w-full max-w-6xl mx-auto"
+        opts={{ align: "start", loop: true }}
+        className="w-full max-w-[76rem] mx-auto px-4"
       >
         <CarouselContent>
           {experiences.map((exp, idx) => (
