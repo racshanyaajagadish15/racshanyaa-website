@@ -128,8 +128,29 @@ export default function Home() {
         <section id="intro"><IntroductionSection /></section>
         <section id="skills"><SkillsMasonry /></section>
         <section id="education"><EducationCards /></section>
-        <section className="relative min-h-[1200px]"> {/* Enough height for both sections */}
-          {/* Common Background Dither */}
+        <section id="experience" className="relative min-h-[600px]">
+          {/* Background Dither */}
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
+           <Dither
+              waveColor={[0.5, 0.5, 0.5]}
+              disableAnimation={false}
+              enableMouseInteraction={true}
+              mouseRadius={0.3}
+              colorNum={4}
+              waveAmplitude={0.3}
+              waveFrequency={3}
+              waveSpeed={0.05}
+            />
+          </div>
+
+          {/* Foreground Content */}
+          <div className="relative z-10 flex items-center justify-center min-h-[600px]">
+            <ExperienceScroller />
+          </div>
+        </section>
+
+        <section id="projects" className="relative py-20 min-h-[600px]">
+          {/* Background Dither */}
           <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
             <Dither
               waveColor={[0.5, 0.5, 0.5]}
@@ -143,19 +164,8 @@ export default function Home() {
             />
           </div>
 
-          {/* Experience Section Foreground */}
-          <section
-            id="experience"
-            className="relative z-10 flex items-center justify-center min-h-[600px] py-10"
-          >
-            <ExperienceScroller />
-          </section>
-
-          {/* Projects Section Foreground */}
-          <section
-            id="projects"
-            className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-[600px] py-20"
-          >
+          {/* Foreground Content */}
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-[600px]">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -166,7 +176,7 @@ export default function Home() {
             </motion.div>
 
             <ProjectsPage showAll={true} />
-          </section>
+          </div>
         </section>
 
       </main>
