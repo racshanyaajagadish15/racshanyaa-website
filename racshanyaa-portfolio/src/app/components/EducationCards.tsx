@@ -145,10 +145,10 @@ export default function EducationCards() {
               </DialogTrigger>
 
               <DialogContent
-                style={{ width: "50vw", maxWidth: "75vw", height: "50vw", maxHeight: "75vw" }}
+                style={{ width: "60vw", maxWidth: "75vw", height: "50vw", maxHeight: "75vw" }}
                 className="
                   fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2
-                  w-[75vw] max-w-[75vw]
+                  w-[80vw] max-w-[80vw]
                   bg-black/90 border border-white/10 backdrop-blur 
                   p-12 rounded-xl shadow-xl 
                   z-50
@@ -170,7 +170,7 @@ export default function EducationCards() {
                   <p className="text-white text-lg mb-2 italic">{selectedEdu?.institution}</p>
                   <p className="text-white text-sm mb-10">{selectedEdu?.period}</p>
 
-                  <div className="grid grid-cols-2 gap-12 h-full">
+                  <div className="grid grid-cols-2 gap-16">
                     {/* Courses Taken */}
                     <div className="pr-6">
                       <h4 className="text-white text-2xl mb-6 font-semibold">📚 Courses Taken</h4>
@@ -178,7 +178,7 @@ export default function EducationCards() {
                     </div>
 
                     {/* GPA, Highlights, Awards */}
-                    <div className="flex flex-col justify-start gap-12">
+                    <div className="flex flex-col gap-12 px-2">  // for right column
                       <div>
                         <h4 className="text-white text-2xl font-semibold mb-4">🎯 GPA / Score</h4>
                         <p className="text-white text-lg">{selectedEdu?.gpa}</p>
