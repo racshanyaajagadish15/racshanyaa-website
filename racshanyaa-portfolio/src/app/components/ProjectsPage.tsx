@@ -4,7 +4,7 @@ import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { FiGithub } from "react-icons/fi"
 import SpotlightCard from "@/components/SpotlightCard/SpotlightCard" // Assuming this is correctly imported
-import Dither from "@/components/Dither/Dither"
+import ProfileCard from "@/components/ProfileCard/ProfileCard"
 
 const allProjects = [
   {
@@ -92,21 +92,12 @@ export default function ProjectsPage({ showAll }: { showAll: boolean }) {
 
   return (
     <div className="relative w-full py-16 px-4 sm:px-8 lg:px-12 min-h-screen">
-      {/* Dither Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
-        <Dither
-          waveColor={[0.5, 0.5, 0.5]}
-          disableAnimation={false}
-          enableMouseInteraction={true}
-          mouseRadius={0.3}
-          colorNum={4}
-          waveAmplitude={0.3}
-          waveFrequency={3}
-          waveSpeed={0.05}
-        />
+      {/* Enhanced Ripple Background - (No changes here, assuming it's correctly styled elsewhere) */}
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <AnimatePresence>
             {projectsToShow.map((project, index) => (
@@ -124,19 +115,20 @@ export default function ProjectsPage({ showAll }: { showAll: boolean }) {
                   y: -8,
                   transition: { duration: 0.3 }
                 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: false, amount: 0.3 }} // ← This line is key!
                 layout
               >
                 <SpotlightCard
                   spotlightColor="rgba(160, 160, 160, 0.2)"
                   className="h-full bg-gradient-to-br from-[#1e1e2e]/90 to-[#2a2a3a]/90 border border-[#3a3a4a] hover:border-[#5a5a7a] text-white hover:shadow-[0_0_30px_rgba(140,140,255,0.15)] transition-all duration-500 p-1"
                 >
+                  {/* Changed to flex-col and justify-between for consistent spacing */}
                   <div className="flex flex-col h-full p-6">
-                    <CardHeader className="p-0 mb-4">
+                    <CardHeader className="p-0 mb-4"> {/* Added mb-4 for spacing */}
                       <motion.div
                         whileHover={{ x: 3 }}
                         transition={{ type: "spring", stiffness: 300 }}
-                        viewport={{ once: false, amount: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }} // ← This line is key!
                       >
                         <CardTitle className="text-2xl font-bold text-white mb-2">
                           {project.name}
@@ -147,17 +139,21 @@ export default function ProjectsPage({ showAll }: { showAll: boolean }) {
                       </CardDescription>
                     </CardHeader>
 
-                    <CardContent className="p-0 mt-auto flex flex-col justify-end">
-                      <div className="flex flex-wrap gap-3 mb-6">
+                    {/* This div will now take up remaining space, pushing the button down */}
+                    <CardContent className="p-0 mt-auto flex flex-col justify-end"> {/* Removed mt-auto here, use flex-col and justify-end on content below */}
+                      <div className="flex flex-wrap gap-3 mb-6"> {/* Added mb-6 for spacing between languages and button */}
                         {project.languages.map((lang, i) => (
                           <motion.div
                             key={i}
-                            whileHover={{ scale: 1.1, y: -3 }}
+                            whileHover={{
+                              scale: 1.1,
+                              y: -3
+                            }}
                             whileTap={{ scale: 0.95 }}
                             transition={{ type: "spring", stiffness: 400 }}
                             className="relative h-10 w-10 group"
                             title={lang.name}
-                            viewport={{ once: false, amount: 0.3 }}
+                            viewport={{ once: false, amount: 0.3 }} // ← This line is key!
                           >
                             <Image
                               src={lang.icon}
@@ -177,9 +173,9 @@ export default function ProjectsPage({ showAll }: { showAll: boolean }) {
                       </div>
 
                       <motion.div
-                        className="flex justify-end"
+                        className="flex justify-end" // Ensure button is aligned right
                         whileHover={{ x: 3 }}
-                        viewport={{ once: false, amount: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }} // ← This line is key!
                       >
                         <a
                           href={project.githubLink}
@@ -205,11 +201,27 @@ export default function ProjectsPage({ showAll }: { showAll: boolean }) {
           </AnimatePresence>
         </div>
       </div>
-
-      {/* ProfileCard or any additional content */}
       <div className="relative z-10 max-w-7xl mx-auto mt-16">
-        {/* You can uncomment and use ProfileCard here */}
-      </div>
+      {/* <div className="flex justify-center">
+       <ProfileCard 
+        avatarUrl="/profile.jpg"
+        name="Racshanyaa"
+        title="Full Stack Developer"
+        contactText="Email Me"
+        onContactClick={() => window.location.href = "mailto:racshanyaa@example.com"}
+        className="w-full max-w-md [--avatar-opacity:1] [--avatar-opacity-hover:0.8] [--icon-opacity:0.9] [--icon-opacity-hover:1]" // Custom CSS variables added
+        showUserInfo={true}
+        enableTilt={true}
+        showBehindGradient={true}
+        behindGradient="radial-gradient(farthest-side circle at var(--pointer-x) var(--pointer-y), hsla(266,100%,90%,0.2) 4%, hsla(266,50%,80%,0.15) 10%, hsla(266,25%,70%,0.1) 50%, hsla(266,0%,60%,0) 100%), radial-gradient(35% 52% at 55% 20%, #00ffaa30 0%, #073aff00 100%), radial-gradient(100% 100% at 50% 50%, #00c1ff30 1%, #073aff00 76%), conic-gradient(from 124deg at 50% 50%, #c137ff30 0%, #07c6ff30 40%, #07c6ff30 60%, #c137ff30 100%)"
+        innerGradient="linear-gradient(145deg, #60496e8c 0%, #71C4FF44 100%)"
+        iconUrl="/profile.jpg"
+        miniAvatarUrl="/profile.jpg"
+        handle="racshanyaa"
+        status="online"
+      />
+      </div> */}
+    </div>
     </div>
   )
 }
