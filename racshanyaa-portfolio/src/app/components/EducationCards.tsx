@@ -144,53 +144,57 @@ export default function EducationCards() {
                 </div>
               </DialogTrigger>
 
-             <DialogContent
-                className="
-                  fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2
-                  w-[95vw] sm:w-[90vw] md:w-[80vw] lg:w-[75vw] xl:w-[70vw]
-                  max-h-[90vh] overflow-y-auto
-                  bg-black/90 border border-white/10 backdrop-blur 
-                  p-6 sm:p-10 md:p-12 rounded-xl shadow-xl 
-                  z-50
-                "
-              >
-                <div className="absolute inset-0 pointer-events-none" style={{ filter: "blur(6px)", opacity: 0.6, zIndex: 0 }}>
-                  <Threads amplitude={1} distance={0} enableMouseInteraction={true} />
+            <DialogContent
+              className="
+                fixed inset-0 flex items-center justify-center p-4 z-50
+              "
+            >
+              <div className="
+                relative w-full max-w-screen-lg max-h-[90vh] overflow-y-auto 
+                bg-black/90 border border-white/10 backdrop-blur-md 
+                rounded-2xl p-6 sm:p-10 md:p-12 shadow-lg
+              ">
+                {/* Background Threads */}
+                <div className="absolute inset-0 pointer-events-none z-0" style={{ filter: "blur(6px)", opacity: 0.4 }}>
+                  <Threads amplitude={1} distance={0} enableMouseInteraction />
                 </div>
 
-                <div className="relative z-10 flex flex-col gap-6 sm:gap-8 md:gap-10">
+                {/* Foreground Content */}
+                <div className="relative z-10 flex flex-col gap-6">
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">{selectedEdu?.degree}</h3>
                   <p className="text-white text-base sm:text-lg italic">{selectedEdu?.institution}</p>
                   <p className="text-white text-sm">{selectedEdu?.period}</p>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                    {/* Left Column: Courses */}
-                    <div className="pr-2 md:pr-6">
-                      <h4 className="text-white text-xl sm:text-2xl mb-4 sm:mb-6 font-semibold">📚 Courses Taken</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    {/* Left: Courses */}
+                    <div>
+                      <h4 className="text-white text-xl sm:text-2xl font-semibold mb-4">📚 Courses Taken</h4>
                       <AnimatedList items={selectedEdu?.courses} />
                     </div>
 
-                    {/* Right Column: GPA / Highlights / Awards */}
-                    <div className="flex flex-col gap-8 md:gap-12">
+                    {/* Right: GPA, Extras, Awards */}
+                    <div className="flex flex-col gap-6">
                       <div>
-                        <h4 className="text-white text-xl sm:text-2xl font-semibold mb-3">🎯 GPA / Score</h4>
+                        <h4 className="text-white text-xl sm:text-2xl font-semibold mb-2">🎯 GPA / Score</h4>
                         <p className="text-white text-lg">{selectedEdu?.gpa}</p>
                       </div>
 
-                      <div>
-                        <h4 className="text-white text-xl sm:text-2xl font-semibold mb-3">🌟 Extra Curriculars</h4>
-                        <ul className="list-disc ml-5 text-white text-base space-y-2">
-                          {selectedEdu?.highlights?.map((item, i) => (
-                            <li key={i}>{item}</li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {selectedEdu?.awards && selectedEdu.awards.some(a => a.trim() !== "") && (
+                      {(selectedEdu?.highlights?.length ?? 0) > 0 && (
                         <div>
-                          <h4 className="text-white text-xl sm:text-2xl font-semibold mb-3">🏆 Awards</h4>
+                          <h4 className="text-white text-xl sm:text-2xl font-semibold mb-2">🌟 Extra Curriculars</h4>
                           <ul className="list-disc ml-5 text-white text-base space-y-2">
-                            {selectedEdu.awards.filter(a => a.trim() !== "").map((item, i) => (
+                            {selectedEdu?.highlights?.map((item, i) => (
+                              <li key={i}>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {selectedEdu?.awards?.some(a => a.trim()) && (
+                        <div>
+                          <h4 className="text-white text-xl sm:text-2xl font-semibold mb-2">🏆 Awards</h4>
+                          <ul className="list-disc ml-5 text-white text-base space-y-2">
+                            {selectedEdu.awards.filter(a => a.trim()).map((item, i) => (
                               <li key={i}>{item}</li>
                             ))}
                           </ul>
@@ -199,7 +203,9 @@ export default function EducationCards() {
                     </div>
                   </div>
                 </div>
-              </DialogContent>
+              </div>
+            </DialogContent>
+
 
             </Dialog>
           </motion.div>
