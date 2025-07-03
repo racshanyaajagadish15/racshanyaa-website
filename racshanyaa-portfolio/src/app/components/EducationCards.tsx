@@ -174,7 +174,7 @@ export default function EducationCards() {
                     {/* Courses Taken */}
                     <div className="pr-6">
                       <h4 className="text-white text-2xl mb-6 font-semibold">📚 Courses Taken</h4>
-                      <AnimatedList items={selectedEdu?.courses} className="max-h-[65vh]" />
+                      <AnimatedList items={selectedEdu?.courses} className="max-h-[65vh] scrollbar-none" />
                     </div>
 
                     {/* GPA, Highlights, Awards */}
