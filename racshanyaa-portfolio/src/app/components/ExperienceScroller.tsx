@@ -68,7 +68,7 @@ const experiences = [
 
 export default function ExperienceCarousel() {
   return (
-    <section className="relative my-20 px-6 min-h-[600px]">
+    <section className="relative my-20 px-6 min-h-[600px] flex flex-col items-center justify-center">
       {/* Squares Background */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
         <Squares 
@@ -81,14 +81,14 @@ export default function ExperienceCarousel() {
       </div>
 
       {/* Foreground Content */}
-      <div className="relative z-10">
+      <div className="relative z-10 max-w-[76rem] w-full px-4">
         <h2 className="text-4xl font-extrabold mb-10 text-center text-white drop-shadow-[0_0_6px_rgba(180,180,180,0.4)]">
           Industry Experience
         </h2>
 
         <Carousel
           opts={{ align: "start", loop: true }}
-          className="w-full max-w-[76rem] mx-auto px-4"
+          className="mx-auto"
         >
           <CarouselContent>
             {experiences.map((exp, idx) => (
